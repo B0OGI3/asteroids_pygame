@@ -23,6 +23,7 @@ def main():
 
         log_state()
         screen.fill("black")
+        ship.update(dt)
         ship.draw(screen)
         pygame.display.flip()
         rt = clock.tick(60) # pauses the game loop until 1/60th of a second has passed 
