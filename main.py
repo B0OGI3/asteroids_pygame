@@ -9,6 +9,11 @@ def main():
     clock = pygame.time.Clock() # In game clock
     dt = 0 # Delta Time (i.e. time passed since last frame drawn)
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
     ship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
@@ -23,8 +28,13 @@ def main():
 
         log_state()
         screen.fill("black")
-        ship.update(dt)
-        ship.draw(screen)
+
+        for up in updatable:
+            up.update(dt)
+        
+        for dr in drawable:
+            dr.draw(screen)
+
         pygame.display.flip()
         rt = clock.tick(60) # pauses the game loop until 1/60th of a second has passed 
         dt = rt / 1000
